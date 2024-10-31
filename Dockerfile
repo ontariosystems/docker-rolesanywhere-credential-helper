@@ -1,5 +1,7 @@
-FROM public.ecr.aws/aws-cli/aws-cli:2.17.20
+FROM alpine:3.20
+RUN apk --no-cache add libc6-compat \
+    && rm -rf /var/cache/apk/*
 WORKDIR /usr/local/bin
-RUN curl -O https://rolesanywhere.amazonaws.com/releases/1.2.0/X86_64/Linux/aws_signing_helper
-RUN chmod a+x aws_signing_helper
+ADD https://rolesanywhere.amazonaws.com/releases/1.2.1/X86_64/Linux/aws_signing_helper .
+RUN chmod a+rx aws_signing_helper
 USER 1000
